@@ -8,7 +8,13 @@ export default async function handler(req, res) {
   const url = `https://entreprise.data.gouv.fr/api/rna/v1/full_text/${encodeURIComponent(q)}`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'rna-proxy-vercel (https://vercel.com)',
+        'Accept': 'application/json'
+      }
+    });
+
     const data = await response.json();
     res.status(200).json(data);
   } catch (error) {
